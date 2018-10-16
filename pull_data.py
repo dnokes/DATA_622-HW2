@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Spyder Editor
+Created on Sun Oct 7 09:11:43 2018
 
-This is a temporary script file.
 """
 
 import getpass
@@ -61,7 +60,7 @@ def fetchKaggleData(login_url,data_url,payload):
     # convert data list to dataframe
     df = pandas.DataFrame(data_list)
     # extract header
-    header = df.iloc[0]
+    header = df.iloc[0]/home/dnokes/projects/ms/data_622/hw2/
     # extract data
     df = df[1:]
     # use header to add column names
