@@ -110,7 +110,7 @@ def runModelPerformance(output_directory,model_file_name):
     return
 
 # define input directory
-output_directory='/home/dnokes/projects/ms/data_622/hw2/'
+output_directory=''
 # define model output file name
 model_file_name='rf_model.pkl'
 # score

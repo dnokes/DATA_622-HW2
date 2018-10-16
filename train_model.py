@@ -174,7 +174,7 @@ def printFeatureImportance(pipeline,X):
 # save split train/test data from original training data set
 def runTrainModel():
     # define input directory
-    output_directory='/home/dnokes/projects/ms/data_622/hw2/'
+    output_directory=''
     # define input training data
     output_file_train='train.csv'
     # define model output file name

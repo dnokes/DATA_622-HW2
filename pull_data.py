@@ -132,7 +132,7 @@ def fetchTitanicKaggleData(output_directory,login_filename,output_file_train,out
     return
 
 # define parameters
-output_directory='/home/dnokes/projects/ms/data_622/hw2/'
+output_directory=''
 login_filename='login'
 output_file_train='train.csv'
 output_file_test='test.csv'
