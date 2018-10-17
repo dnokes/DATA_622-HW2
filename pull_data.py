@@ -62,7 +62,7 @@ def fetchKaggleData(login_url,data_url,payload):
     # convert data list to dataframe
     df = pandas.DataFrame(data_list)
     # extract header
-    header = df.iloc[0]/home/dnokes/projects/ms/data_622/hw2/
+    header = df.iloc[0]
     # extract data
     df = df[1:]
     # use header to add column names
@@ -92,43 +92,34 @@ def fetchTitanicKaggleData(output_directory,login_filename,output_file_train,out
                     # fetch Kaggle data (test)
                     trainDf.to_csv(output_directory+output_file_train,index=False)
                 except:
-                    print('Could not write Kaggle train data to disk.')
-                    print('Please check that you have write permissions.')               
-                
-            else:
-                print('Could not fetch Kaggle train data.')
-                print('Please check Kaggle user name and password.')
-                print('Please check the Kaggle login and data url.')
-                print('Please ensure that you are connected to the internet.')                
+                    print('Could not write Kaggle train data to disk. Please check that you have write permissions.')
             
+            else:
+                print('Could not fetch Kaggle train data. Please check Kaggle user name and password. Please check the Kaggle login and data url. Please ensure that you are connected to the internet.')
+        
         except:
-            print('Did not write Kaggle train data to disk.')
-         
+            print('Could not fetch Kaggle train data. Please check Kaggle user name and password. Please check the Kaggle login and data url. Please ensure that you are connected to the internet.')
+        
         try:
             # fetch Kaggle data (train)
             testDf=fetchKaggleData(login_url,data_test_url,payload)
             
             if (trainDf.values[0][0]!='<html>'): 
-
                 try:
                     # fetch Kaggle data (test)
                     testDf.to_csv(output_directory+output_file_test,index=False)
                 except:
-                    print('Could not write Kaggle train data to disk.')
-                    print('Please check that you have write permissions.')               
-                
+                    print('Could not write Kaggle test data to disk. Please check that you have write permissions.')          
+
             else:
-                print('Could not fetch Kaggle train data.')
-                print('Please check Kaggle user name and password.')
-                print('Please check the Kaggle login and data url.')
-                print('Please ensure that you are connected to the internet.')                
-            
+                print('Could not fetch Kaggle test data. Please check Kaggle user name and password. Please check the Kaggle login and data url. Please ensure that you are connected to the internet.')
+
         except:
-            print('Did not write Kaggle train data to disk.')            
+            print('Could not fetch Kaggle test data. Please check Kaggle user name and password. Please check the Kaggle login and data url. Please ensure that you are connected to the internet.')
 
     # exit with message if cannot 
     except:
-        print('Please check that you have write permissions')
+        raise Exception('Could not fetch Kaggle data. Please check Kaggle user name and password. Please check the Kaggle login and data url. Please ensure that you are connected to the internet. Please check that you have write permissions.')
             
     return
 

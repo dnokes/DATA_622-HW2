@@ -42,15 +42,32 @@ def readModelInputs(output_directory,model_file_name):
         rf_model = readModel(output_directory,model_file_name)
     
     except:
-        print("Could not open model input file: "+str(model_file_name))
+        raise Exception('Could not open model input file: '+str(model_file_name))
         
     try:
         # read model input data
         X_train, X_test, y_train, y_test,X,y=readModelInputData(output_directory)
     except:
-        print("Could not read test and train data.")
+        raise Exception('Could not read test and train data.')
     
     return rf_model,X_train, X_test, y_train, y_test,X,y
+
+def saveScoreReport(output_directory,class_report_train,class_report_test,score_train,score_test):
+    
+    try:
+        outputFileHandle=open(output_directory+'score_model_report.txt','w')
+        outputFileHandle.write('In-Sample Performance:\n')
+        outputFileHandle.write(class_report_train+"\n")
+        outputFileHandle.write('In-Sample Accuracy: '+str(round(score_train,4))+'\n')
+        outputFileHandle.write('Out-Of-Sample Performance:\n')
+        outputFileHandle.write(class_report_test+'\n')
+        outputFileHandle.write('Out-Of-Sample Accuracy: '+str(round(score_test,4))+'\n')
+        outputFileHandle.close()
+    except:
+        raise Exception('Did not write scoring report to disk.')
+        raise Exception('Please check your write permissions')
+        
+    return
 
 def scoreModel(output_directory,model_file_name):
     # read model inputs
@@ -64,7 +81,7 @@ def scoreModel(output_directory,model_file_name):
     class_report_train = classification_report(y_train, y_pred_train)
     print('In-Sample Performance:')
     print(class_report_train)
-    print("In-Sample Accuracy: %0.2f " % (score_train))
+    print('In-Sample Accuracy: '+str(round(score_train,4)))
     # compute accuracy for model on test set
     score_test = rf_model.score(X_test, y_test)
     # create test set predictions
@@ -73,9 +90,12 @@ def scoreModel(output_directory,model_file_name):
     class_report_test = classification_report(y_test, y_pred)
     print('Out-Of-Sample Performance:')
     print(class_report_test)
-    print("Accuracy: %0.2f " % (score_test))
+    print('Out-Of-Sample Accuracy: '+str(round(score_test,4)))
     
-    return
+    # save scoring report to disk
+    saveScoreReport(output_directory,class_report_train,class_report_test,score_train,score_test)    
+    
+    return y_pred
 
 # pass in model, X, y, and number of folds, return mean accuracy and 2x standard 
 # deviation of accuracy based on cross-validation
@@ -103,9 +123,13 @@ def runModelPerformance(output_directory,model_file_name):
     # define number of folds for cross-validation
     nFolds=5
     # score model in- and out- of-sample (for comparison)
-    scoreModel(output_directory,model_file_name)
+    y_pred=scoreModel(output_directory,model_file_name)
     # conduct cross-validation to assess variability of performance
     crossValidation(rf_model, X, y,nFolds)
+
+    # write test prediction
+    pandas.DataFrame(y_pred,columns=['Survived']).to_csv(output_directory+'y_test_prediction.csv',
+        index=False)
     
     return
 

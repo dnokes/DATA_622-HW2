@@ -19,8 +19,7 @@ def readData(output_directory,output_file_train):
     try:
         train_df = pandas.read_csv(output_directory+output_file_train)
     except:
-        print("Could not read training data.")
-        print("Please check to ensure that the path and file name are correct")
+        raise Exception("Could not read training data. Please check to ensure that the path and file name are correct")
     
     return train_df 
 
@@ -87,8 +86,7 @@ def buildFeatures(train_df):
             'Age','AgeFilled','ageGroup','Cabin','Embarked','Level','cLevel','Sex_male'], 
             axis=1,inplace=True)
     except:
-        print("Could not build features.")
-        print("Please check to ensure that the correct data is being passed into the function")
+        raise Exception("Could not build features. Please check to ensure that the correct data is being passed into the function")
     
     return df_train
 
@@ -102,7 +100,7 @@ def buildModelPipeline(randomSeed):
         # build pipeline
         pipeline = Pipeline([('imputation', rf_impute), ('random_forest', rf)])    
     except:
-        print("Could not build pipeline")
+        raise Exception("Could not build pipeline")
     
     return pipeline
 
@@ -133,7 +131,7 @@ def saveModel(rf_model,output_directory,model_file_name):
         pickle.dump(rf_model, pickleFileHandle)
 
     except:
-        print("Could not save model to file.")
+        raise Exception("Could not save model to file.")
     
     # close file handle
     pickleFileHandle.close()    
@@ -151,7 +149,7 @@ def saveData(output_directory,X_train, X_test, y_train, y_test,X,y):
         X.to_csv(output_directory+'X.csv',index=False)
         y.to_csv(output_directory+'y.csv',index=False,header="Survived")
     except:
-        print("Could not save test and train data.")
+        raise Exception("Could not save test and train data.")
         
     return 
 
