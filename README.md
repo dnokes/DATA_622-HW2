@@ -46,11 +46,16 @@ When this is called using python score_model.py in the command line, this will i
 
 3. Critical Thinking (2 points total)
 Modify this ReadMe file to answer the following questions directly in place.
+
 	1) Kaggle changes links/ file locations/login process/ file content
+
+The current version of the pull_data.py script could be made more robust by using the Kaggle data API. This would likely simplify the login process and introduce more stability into the application.
 
 The current version of the pull_data.py script is robust to changes in the ordering of the columns, but not to changes in the names of the columns, as this would have an impact downstream in the feature creation and training parts of the application.
 
 If the file content changes, we can modify the pull_data.py script to handle the changes, but this could also require the entire application to be redeveloped. To make the script more robust we can add more checks in the data read function to ensure that the column names and the width of the data are the same. This is a very simple modification in the error checking that could reduce the risk that data is passed to the training and scoring parts of the application in the wrong format. 
+
+
 
 	2) We run out of space on HD / local permissions issue - can't save files
 
