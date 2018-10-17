@@ -48,14 +48,24 @@ When this is called using python score_model.py in the command line, this will i
 Modify this ReadMe file to answer the following questions directly in place.
 	1) Kaggle changes links/ file locations/login process/ file content
 
+The current version of the pull_data.py script is robust to changes in the ordering of the columns, but not to changes in the names of the columns, as this would have an impact downstream in the feature creation and training parts of the application.
+
+If the file content changes, we can modify the pull_data.py script to handle the changes, but this could also require the entire application to be redeveloped. To make the script more robust we can add more checks in the data read function to ensure that the column names and the width of the data are the same. This is a very simple modification in the error checking that could reduce the risk that data is passed to the training and scoring parts of the application in the wrong format. 
 
 	2) We run out of space on HD / local permissions issue - can't save files
+
+Without permissions to write files we might need to be able to do everything in memory. We can pass input and output between functions without writing to disk. The pull_data.py bundle of functions reads the training and testing data directly from the internet into a DataFrame. Writing the data to disk is only used as persistent storage and may not be strictly required. It would not be overly complex to change the scripts so that output is piped between scripts or to consolidate the scripts so the the DataFrame is passed between sections without the need for persistent storage.
+
+Alternatively, we can move the container to a different server with the necessary resources/permissions, pull the application from the source control repository,  and run the application without changes. Storage can be mounted inside the container so we can generally get around permission issues without needing to move the application to another server.
 
 
 	3) Someone updated python packages and there is unintended effect (functions retired or act differently)
 
+The docker container and the requirements.txt file allow us to restore the original state of the environment. To use the application  after code-breaking changes are made to package versions we can restore the state of our original application. We can then develop an updated version of the application with updated packages if really necessary without disrupting use of the application.
 
+To make the application robust to such potential changes in package versions we can add code to check the package version and throw an error if package versions do not match the versions specified in the requirements.txt
 
 	4) Docker issues - lost internet within docker due to some ip binding to vm or local routing issues( I guess this falls under lost internet, but I am talking more if docker is the cause rather then ISP)
 
+We can add error checking that checks for network/internet access via ping of common availability sites. Network checks can be very complex or very simple depending on our application requirements.
 
