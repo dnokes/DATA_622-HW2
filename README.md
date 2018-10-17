@@ -63,6 +63,8 @@ If the file content changes, we can modify the pull_data.py script to handle the
 
 Without permissions to write files we might need to be able to do everything in memory. We can pass input and output between functions without writing to disk. The pull_data.py bundle of functions reads the training and testing data directly from the internet into a DataFrame. Writing the data to disk is only used as persistent storage and may not be strictly required. It would not be overly complex to change the scripts so that output is piped between scripts or to consolidate the scripts so the the DataFrame is passed between sections without the need for persistent storage.
 
+Redis - an open source, in-memory data structure store that stores data values of several different types associated with a given key - can be used as a cache for persisting objects beyond the lifespan of a Python process. Redis is available on Docker and thus could be used to pass DataFrames between the three main scripts (i.e., pull_data.py, train_data.py, and score_model.py).
+
 Alternatively, we can move the container to a different server with the necessary resources/permissions, pull the application from the source control repository,  and run the application without changes. Storage can be mounted inside the container so we can generally get around permission issues without needing to move the application to another server.
 
 
