@@ -51,6 +51,8 @@ Modify this ReadMe file to answer the following questions directly in place.
 
 The current version of the pull_data.py script could be made more robust by using the Kaggle data API. This would likely simplify the login process and introduce more stability into the application.
 
+The path to files and the URLs are parameters in the current version of the pull_data.py script so they can be changed easily.
+
 The current version of the pull_data.py script is robust to changes in the ordering of the columns, but not to changes in the names of the columns, as this would have an impact downstream in the feature creation and training parts of the application.
 
 If the file content changes, we can modify the pull_data.py script to handle the changes, but this could also require the entire application to be redeveloped. To make the script more robust we can add more checks in the data read function to ensure that the column names and the width of the data are the same. This is a very simple modification in the error checking that could reduce the risk that data is passed to the training and scoring parts of the application in the wrong format. 
