@@ -4,6 +4,11 @@ Created on Sun Oct 7 09:11:43 2018
 
 @author: dnokes
 
+# Note that the fetchKaggleData() function draws heavily on the comments and code from
+# user, CaitLAN Jenner, found at the following URL
+# https://stackoverflow.com/questions/50863516/issue-in-extracting-titanic-training-data-from-kaggle-using-jupyter-notebook
+# 
+
 """
 
 import getpass
