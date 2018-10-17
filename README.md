@@ -74,5 +74,5 @@ To make the application robust to such potential changes in package versions we 
 
 	4) Docker issues - lost internet within docker due to some ip binding to vm or local routing issues( I guess this falls under lost internet, but I am talking more if docker is the cause rather then ISP)
 
-We can add error checking that checks for network/internet access via ping of common availability sites. Network checks can be very complex or very simple depending on our application requirements.
+We can add error checking that checks for network/internet access via ping of common high-availability sites (such as www.google.com). Network checks can be very complex or very simple depending on our application requirements.
 
